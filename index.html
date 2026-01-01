@@ -1,20 +1,78 @@
-<!doctype html>
-<html lang="tr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Arrpa Share</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Genel SEO Meta -->
+  <meta name="title" content="Arrpa – Global Farm & Livestock Management" />
+  <meta name="description" content="Manage your farm animals, AI-powered feed rations, and 2nd-hand equipment marketplace. Fast, free, and global." />
+
+  <!-- OpenGraph (genel site görseli) -->
+  <meta property="og:title" content="Arrpa – Global Farm & Livestock Management" />
+  <meta property="og:description" content="Track livestock, generate AI rations, and explore farm & field equipment marketplace." />
+  <meta property="og:image" content="" />
+  <meta property="og:type" content="website" />
+
+  <title>Arrpa – Farm & Livestock Management</title>
+
+  <style>
+    body {
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background:#0f0f0f;
+      color:#fff;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      text-align:center;
+      padding:20px;
+    }
+    .container {
+      max-width:600px;
+    }
+    h1 {
+      font-size:36px;
+      margin-bottom:10px;
+    }
+    p {
+      font-size:18px;
+      opacity:0.8;
+      margin-bottom:20px;
+    }
+    .btn {
+      display:inline-block;
+      background:#FF6A00;
+      color:#fff;
+      padding:14px 28px;
+      border-radius:8px;
+      font-size:18px;
+      font-weight:600;
+      text-decoration:none;
+      margin:8px;
+    }
+    .secondary {
+      background:#222;
+      opacity:0.9;
+    }
+    .btn:hover {
+      opacity:1;
+    }
+  </style>
 </head>
 <body>
-<script>
-  const p = new URLSearchParams(location.search);
-  const id = p.get("id");
-  if (id) location.replace(`/l/${encodeURIComponent(id)}`);
-  document.body.innerHTML = `
-    <h2>Arrpa Share</h2>
-    <p>Linke ilan id ekleyerek aç:</p>
-    <code>?id=123</code>
-  `;
-</script>
+
+<div class="container">
+  <h1>Arrpa</h1>
+  <p>Global farm & livestock tracking + AI feed rations + equipment marketplace</p>
+
+  <!-- Share’e git -->
+  <a class="btn secondary" href="https://share.arrpa.app/l/1">View Sample Listing</a>
+
+  <!-- Uygulama indir -->
+  <a class="btn" href="#">Download App</a>
+</div>
+
 </body>
 </html>
