@@ -1,112 +1,57 @@
 export interface Env {
   SUPABASE_URL: string;
   SUPABASE_ANON_KEY: string;
+  DEFAULT_OG_IMAGE?: string; // opsiyonel
+  APP_DOWNLOAD_URL?: string; // opsiyonel (landing / store)
 }
 
-const htmlTemplate = (data: any) => `
-<!DOCTYPE html>
-<html lang="${data.locale}">
+function esc(s: any) {
+  const str = String(s ?? "");
+  return str
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function pickFirst(objOrArr: any) {
+  if (Array.isArray(objOrArr)) return objOrArr[0] ?? null;
+  return objOrArr ?? null;
+}
+
+function buildHtml(data: {
+  locale: string;
+  title: string;
+  description: string;
+  image: string;
+  priceText: string;
+  locationText: string;
+  canonicalUrl: string;
+  appUrl: string;
+}) {
+  const title = esc(data.title);
+  const description = esc(data.description);
+  const image = esc(data.image);
+  const priceText = esc(data.priceText);
+  const locationText = esc(data.locationText);
+  const canonicalUrl = esc(data.canonicalUrl);
+  const appUrl = esc(data.appUrl);
+
+  return `<!DOCTYPE html>
+<html lang="${esc(data.locale)}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- OpenGraph Tags -->
-  <meta property="og:title" content="${data.title}" />
-  <meta property="og:description" content="${data.description}" />
-  <meta property="og:image" content="${data.image}" />
-  <meta property="og:type" content="website" />
+  <link rel="canonical" href="${canonicalUrl}" />
+  <meta name="robots" content="index,follow" />
 
-  <title>${data.title}</title>
+  <!-- Basic SEO -->
+  <title>${title}</title>
+  <meta name="description" content="${description}" />
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background:#111;
-      color:#fff;
-      padding:20px;
-    }
-    .card {
-      background:#1a1a1a;
-      padding:15px;
-      border-radius:12px;
-      max-width:420px;
-      margin:auto;
-      box-shadow:0 2px 10px rgba(0,0,0,0.5);
-    }
-    .price {
-      font-size:22px;
-      font-weight:bold;
-      margin:10px 0;
-      color:#4CAF50;
-    }
-    .btn {
-      display:block;
-      background:#FF6A00;
-      color:#fff;
-      padding:12px;
-      text-align:center;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-      margin-top:12px;
-    }
-  </style>
-</head>
-<body>
-
-<div class="card">
-  <h2>${data.title}</h2>
-  <p>${data.description}</p>
-  <div class="price">${data.price} ${data.currency}</div>
-  <img src="${data.image}" style="width:100%;border-radius:8px" />
-  <a class="btn" href="#">Arrpa’da Aç</a>
-</div>
-
-</body>
-</html>
-`;
-
-export default {
-  async fetch(request: Request, env: Env) {
-    const url = new URL(request.url);
-    const path = url.pathname;
-
-    // Share route yakalama
-    if (path.startsWith("/l/")) {
-      const id = path.split("/")[2];
-
-      // Supabase RPC çağırma
-      const supabaseReq = await fetch(`${env.SUPABASE_URL}/rest/v1/rpc/rpcpubliclistingdetail`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": env.SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${env.SUPABASE_ANON_KEY}`
-        },
-        body: JSON.stringify({ p_id: Number(id), p_locale: "en" })
-      });
-
-      if (!supabaseReq.ok) {
-        return new Response("İlan bulunamadı veya hata oluştu", { status: 404 });
-      }
-
-      const res = await supabaseReq.json();
-
-      const listingData = {
-        locale: res.locale || "en",
-        title: res.title || "Arrpa İlan",
-        description: res.description || "Açıklama yok",
-        price: res.price || "0",
-        currency: res.currency || "TRY",
-        image: res.main_avatar || "", // OG preview için ana görsel
-      };
-
-      // HTML döndürme
-      return new Response(htmlTemplate(listingData), {
-        headers: { "Content-Type": "text/html" }
-      });
-    }
-
-    return new Response("Not Found", { status: 404 });
-  }
-};
+  <!-- OpenGraph -->
+  <meta property="og:title" content="${title}" />
+  <meta property="og:description" content="${description}" />
+  <meta property="og:image" content="${image}" /
