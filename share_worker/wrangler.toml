@@ -1,0 +1,18 @@
+name = "arrpa-share"
+main = "src/index.ts"
+compatibility_date = "2025-12-31"
+
+# Şimdilik hiçbir route karışmasın diye share'i subdomainde yayınlayacağız
+# (Cloudflare dashboard’da share.arrpa.app domainini bu worker’a bağlayacaksın)
+
+[vars]
+SUPABASE_URL = ""
+SUPABASE_ANON_KEY = ""
+
+# İstersen KV cache eklemek için (şimdilik kapalı, açarsan performans uçar)
+# [[kv_namespaces]]
+# binding = "ARRPA_CACHE"
+# id = "your_kv_namespace_id"
+
+# İlan share endpoint'i /l/:id üzerinden çalışacak
+# Ek route gerekmez, fetch içinde kontrol ediyoruz
