@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arrpa Yardım Merkezi</title>
+
+  <style>
+    :root {
+      --green: #004b23;
+      --green-soft: #e8f3ec;
+      --text: #111;
+      --muted: #777;
+      --border: #e5e5e5;
+      --bg: #f3f6fa;
+      --card: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 760px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: var(--card);
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 24px;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .back {
+      border: none;
+      background: transparent;
+      color: var(--green);
+      font-size: 36px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 26px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .hero {
+      padding: 26px 24px 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7fbf8 100%);
+    }
+
+    .hero h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      color: var(--green);
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .search-box {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f1f1;
+      border-radius: 14px;
+      padding: 14px 16px;
+      color: #777;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 16px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 8px 24px 20px;
+    }
+
+    .quick-card {
+      background: var(--green-soft);
+      border: 1px solid #d7eadc;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .quick-card strong {
+      display: block;
+      color: var(--green);
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .quick-card span {
+      color: #666;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .section-title {
+      padding: 8px 24px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .accordion {
+      padding: 0 16px 28px;
+    }
+
+    details {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 8px;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .q-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .q-desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 5px;
+      font-weight: 400;
+    }
+
+    .arrow {
+      font-size: 28px;
+      color: #777;
+      transition: transform 0.2s ease;
+    }
+
+    details[open] .arrow {
+      transform: rotate(180deg);
+    }
+
+    .answer {
+      padding: 0 0 18px;
+      color: #555;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .answer ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    .contact-box {
+      margin: 0 24px 36px;
+      background: var(--green);
+      color: white;
+      border-radius: 20px;
+      padding: 22px;
+    }
+
+    .contact-box h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .contact-box p {
+      margin: 0 0 16px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    .contact-box a {
+      display: inline-block;
+      background: #fff;
+      color: var(--green);
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        max-width: 100%;
+      }
+
+      .header {
+        height: 72px;
+        padding: 0 18px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .hero h2 {
+        font-size: 24px;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .q-title {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <header class="header">
+      <button class="back" onclick="history.back()">‹</button>
+      <h1>Yardım Merkezi</h1>
+    </header>
+
+    <section class="hero">
+      <h2>Size nasıl yardımcı olabiliriz?</h2>
+      <p>
+        Arrpa hesabınız, ilanlarınız, ödeme işlemleriniz ve uygulama kullanımıyla ilgili sık sorulan soruları burada bulabilirsiniz.
+      </p>
+
+      <div class="search-box">
+        🔍
+        <input type="text" placeholder="Yardım konusu ara..." />
+      </div>
+    </section>
+
+    <section class="quick-grid">
+      <div class="quick-card">
+        <strong>Hesap ve Giriş</strong>
+        <span>Giriş, şifre, hesap güvenliği ve profil ayarları.</span>
+      </div>
+
+      <div class="quick-card">
+        <strong>İlan Yönetimi</strong>
+        <span>İlan ekleme, düzenleme, yayından kaldırma ve medya.</span>
+      </div>
+
+      <div class="quick-card">
+        <strong>Ödeme ve Krediler</strong>
+        <span>İlan kredileri, premium ilanlar ve abonelikler.</span>
+      </div>
+
+      <div class="quick-card">
+        <strong>Çiftlik Paneli</strong>
+        <span>Hayvanlar, hatırlatıcılar ve işletme bilgileri.</span>
+      </div>
+    </section>
+
+    <div class="section-title">Sık Sorulan Sorular</div>
+
+    <section class="accordion">
+
+      <details open>
+        <summary>
+          <div>
+            <div class="q-title">Hesabıma nasıl giriş yapabilirim?</div>
+            <div class="q-desc">E-posta, Google veya Apple ile giriş seçenekleri.</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </summary>
+        <div class="answer">
+          Arrpa hesabınıza kayıtlı e-posta adresinizle veya desteklenen sosyal giriş yöntemleriyle giriş yapabilirsiniz.
+          Giriş yaparken sorun yaşıyorsanız internet bağlantınızı kontrol edin ve uygulamayı yeniden başlatın.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div>
+            <div class="q-title">İlanımı nasıl yayınlarım?</div>
+            <div class="q-desc">İlan bilgileri, fotoğraf ve kategori seçimi.</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </summary>
+        <div class="answer">
+          İlan ekleme ekranından ürün başlığı, kategori, fiyat, konum ve iletişim bilgilerini doldurun.
+          Fotoğraf ekledikten sonra ilanınız kontrol sürecine alınır.
+          <ul>
+            <li>Eksik veya yanıltıcı ilanlar reddedilebilir.</li>
+            <li>Uygun ilanlar kısa süre içinde yayına alınır.</li>
+            <li>İlan görselleri ürünle uyumlu olmalıdır.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div>
+            <div class="q-title">İlanım neden onay bekliyor?</div>
+            <div class="q-desc">Kontrol süreci ve yayın durumu.</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </summary>
+        <div class="answer">
+          Güvenli bir pazar yeri sağlamak için bazı ilanlar otomatik veya manuel kontrolden geçebilir.
+          İlanınızda eksik bilgi, uygunsuz görsel veya hatalı kategori varsa yayınlanması gecikebilir.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div>
+            <div class="q-title">Premium ilan nedir?</div>
+            <div class="q-desc">İlanınızı daha görünür hale getirme.</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </summary>
+        <div class="answer">
+          Premium ilanlar, listeleme alanlarında daha dikkat çekici şekilde gösterilebilir.
+          Bu özellik ürününüzün daha fazla kullanıcı tarafından görülmesine yardımcı olur.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div>
+            <div class="q-title">İlan kredisi nasıl kullanılır?</div>
+            <div class="q-desc">Kredi bakiyesi ve kullanım mantığı.</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </summary>
+        <div class="answer">
+          İlan kredileri, yeni ilan yayınlamak veya belirli ilan özelliklerini kullanmak için kullanılabilir.
+          Kredi bakiyenizi uygulama içindeki hesap veya işletme bölümünden kontrol edebilirsiniz.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div>
+            <div class="q-title">Hayvan ve hatırlatıcı kayıtları ne işe yarar?</div>
+            <div class="q-desc">Çiftlik yönetimi araçları.</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </summary>
+        <div class="answer">
+          Çiftlik panelinde hayvanlarınızı takip edebilir, doğum, aşı, bakım ve diğer önemli işlemler için hatırlatıcı oluşturabilirsiniz.
+          Bu özellik, günlük çiftlik işlerinizi daha düzenli yönetmenize yardımcı olur.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div>
+            <div class="q-title">Konum bilgilerimi değiştirebilir miyim?</div>
+            <div class="q-desc">Ülke, şehir ve ilçe bilgileri.</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </summary>
+        <div class="answer">
+          Bazı konum bilgileri hesap veya işletme ayarlarından değiştirilebilir.
+          Ancak güvenlik ve ilan doğruluğu için bazı alanlar sonradan değiştirilemeyebilir.
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div>
+            <div class="q-title">Destek talebi nasıl oluştururum?</div>
+            <div class="q-desc">Sorununuzu bize iletin.</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </summary>
+        <div class="answer">
+          Yardım merkezindeki destek alanından bize ulaşabilirsiniz.
+          Talebinizde mümkünse ekran görüntüsü, ilan numarası ve yaşadığınız sorunun kısa açıklamasını paylaşın.
+        </div>
+      </details>
+
+    </section>
+
+    <section class="contact-box">
+      <h3>Hâlâ yardıma mı ihtiyacınız var?</h3>
+      <p>
+        Sorununuzu çözemediyseniz destek ekibimize ulaşabilirsiniz. En kısa sürede size dönüş yapacağız.
+      </p>
+      <a href="mailto:support@arrpa.app">Destek ile iletişime geç</a>
+    </section>
+
+  </div>
+
+</body>
+</html>
