@@ -31,7 +31,7 @@ body {
 .header {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 28px 22px;
+  padding: 24px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,7 +44,7 @@ body {
 }
 
 .logo-area img {
-  height: 52px;
+  height: 46px;
   width: auto;
   display: block;
 }
@@ -57,18 +57,24 @@ body {
 
 .nav {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .nav a {
-  color: var(--dark);
   text-decoration: none;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.8);
-  padding: 11px 18px;
-  border-radius: 999px;
   font-size: 14px;
+  color: #1b2b1d;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(0,0,0,0.05);
+  backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+}
+
+.nav a:hover {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .hero {
@@ -327,7 +333,6 @@ h1 {
 <header class="header">
   <div class="logo-area">
     <img src="https://cdn.arrpa.app/logo_tbm_share.png" alt="Arrpa Logo">
-    <div class="logo-text">Arrpa</div>
   </div>
 
   <nav class="nav">
